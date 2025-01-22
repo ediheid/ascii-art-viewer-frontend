@@ -4,13 +4,16 @@
 
 This is the **frontend** for the ASCII Art Printer app. It allows users to upload an ASCII art text file, set a printing interval (in milliseconds), and watch the ASCII art being printed line by line, with a progress bar to show completion.
 
-- I decided to add a min interval value to ensure the ASCII Art is printed correctly, I found when the interval was too fast it would cut of the image.
-- I also added a max interval for the sake of it
-- Plus disabling the button and inline validation messages
+- I decided to add a min interval value to ensure the ASCII Art is printed correctly - (I found when the interval was too fast it would cut of the image).
+- Also added a max interval for the sake of it.
 - Added some very basic error handling and time out handling
-- I added double validation for file type, the input itself only accepts .txt files, but I added an extra layer of validation to the file uploader function just in case
-- I was pretty rushed on this, so I'm sure I've missed quite a few edge cases (or even more obvious cases) - which I would love to discuss :)
-- It is pretty bare bones, so thought I'd add a bit of Meyer Sound styling to it ;)
+- Inline validation messages
+- Disable `print` button when condition are not met
+- Double validation for file type, the input itself only accepts .txt files, but I added an extra layer of validation to the file uploader just in case
+
+- It is pretty bare bones, so thought I'd add a bit of very basic Meyer Sound styling to it ;)
+- I wanted to speed this up for you, so I'm sure I've missed quite a few edge cases (or even more obvious cases) - which I would love to discuss :)
+- Given more time, I would have liked to and some input validation with `vee-validate`, some `Tailwind` styling and some component testing.
 
 ## Features
 
