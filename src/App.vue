@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import FileUploader from "./components/FileUploader.vue";
+import Header from "./components/Header.vue";
+import PrintSetup from "./components/PrintSetup.vue";
+import AsciiArtOutput from "./components/AsciiArtOutput.vue";
 import { startPrintingProcess } from "./server/socketServer.ts";
 import { updateProgress } from "./helpers/asciiArtHelper";
 import type { Socket } from "socket.io-client";
@@ -10,19 +12,27 @@ const currentLine = ref("");
 const fullArt = ref("");
 
 const socket = ref<Socket | null>(null);
+const validationText = ref("");
 
 const resetState = () => {
   progress.value = 0;
   currentLine.value = "";
   fullArt.value = "";
+  validationText.value = "";
 };
 
 const startPrinting = async (fileInput: File | null, intervalInput: number) => {
-  if (!fileInput || intervalInput < 50) {
-    alert("Please select a valid file and interval.");
+  if (!fileInput) {
+    validationText.value = "Please select a valid file.";
+    return;
+  }
+  if (intervalInput < 50 || intervalInput > 2000) {
+    validationText.value =
+      "Please specify an interval between 50ms and 2000ms.";
     return;
   }
 
+  validationText.value = "";
   resetState();
 
   const { socketConnection } = await startPrintingProcess(
@@ -45,38 +55,41 @@ const startPrinting = async (fileInput: File | null, intervalInput: number) => {
 </script>
 
 <template>
-  <div id="app" class="container">
-    <h1>ASCII Art Printer</h1>
+  <div id="app">
+    <Header />
 
-    <FileUploader @start-printing="startPrinting" />
+    <main class="main-content">
+      <section class="container">
+        <PrintSetup @start-printing="startPrinting" />
+        <AsciiArtOutput :progress="progress" :fullArt="fullArt" />
 
-    <div class="output" v-if="progress > 0">
-      <div class="ascii-art">{{ fullArt }}</div>
-
-      <!-- //todo: custom style progress element if I have time -->
-      <progress :value="progress" max="100"></progress>
-      <span>{{ progress }}% completed</span>
-    </div>
+        <p v-if="validationText" class="validation-text">
+          {{ validationText }}
+        </p>
+      </section>
+    </main>
   </div>
 </template>
 
 <style scoped>
+.main-content {
+  height: calc(100vh - 6rem);
+  padding: 1rem;
+}
+
 .container {
-  text-align: center;
-  margin: 20px auto;
-  max-width: 600px;
-}
-
-.ascii-art {
-  font-family: monospace;
-  white-space: pre-wrap;
-  margin: 20px 0;
-  text-align: left;
-  overflow-wrap: break-word;
-}
-
-progress {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
-  margin: 10px 0;
+  min-width: 40rem;
+  max-width: 80rem;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+section {
+  margin: 0 auto;
+  width: 100%;
 }
 </style>

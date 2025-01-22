@@ -1,0 +1,35 @@
+/* Color Variables */
+:root {
+  --black-primary: #000000;
+  --black-secondary: #0d0d0d;
+  --white: #eeeeee;
+  --grey-1: #1e1e1e;
+  --grey-2: #181818;
+  --grey-3: #cccccc;
+  --grey-4: #686868;
+  --blue-primary: #5b86c4;
+  --blue-secondary: #5a84d7;
+  --yellow-primary: #fbb24c;
+
+  /* Text Colors */
+  --text-color-primary: var(--white);
+  --text-color-secondary: var(--grey-3);
+  --text-color-tertiary: var(--blue-primary);
+  --text-color-disabled: var(--grey-4);
+  --text-color-warning: var(--yellow-primary);
+
+  /* Background Colors */
+  --background-color-primary: var(--black-primary);
+  --background-color-secondary: var(--grey-1);
+  --backgorund-color-tertiary: var(--grey-2);
+  --background-color-blue-primary: var(--blue-primary);
+  --background-color-blue-secondary: var(--blue-secondary);
+
+  /* Button */
+  --button-background: var(--background-color-blue-secondary);
+  --button-background-disabled: var(--black-secondary);
+  --button-background-hover: var(--background-color-blue-primary);
+  --button-text-color: var(--text-color-primary);
+  --button-text-color-disabled: var(--text-color-disabled);
+  --button-text-color-hover: var(--text-color-secondary);
+}
