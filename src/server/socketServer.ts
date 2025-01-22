@@ -1,13 +1,15 @@
 import axios from "axios";
 import { io, Socket } from "socket.io-client";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 export async function uploadFile(file: File, interval: number): Promise<void> {
   const formData = new FormData();
   formData.append("file", file);
   formData.append("interval", interval.toString());
 
   try {
-    await axios.post("http://localhost:3000/upload", formData, {
+    await axios.post(`${API_BASE_URL}/upload`, formData, {
       headers: { "Content-Type": "multipart/form-data" },
       timeout: 10000,
     });
@@ -33,7 +35,7 @@ export async function startPrintingProcess(
 
   await uploadFile(file, interval);
 
-  const socketConnection = io("http://localhost:3000");
+  const socketConnection = io(API_BASE_URL);
 
   socketConnection.emit("startPrinting", file.name, interval);
 
