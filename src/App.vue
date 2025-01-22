@@ -10,9 +10,8 @@ import type { Socket } from "socket.io-client";
 const progress = ref(0);
 const currentLine = ref("");
 const fullArt = ref("");
-
-const socket = ref<Socket | null>(null);
 const validationText = ref("");
+const socket = ref<Socket | null>(null);
 
 const resetState = () => {
   progress.value = 0;
@@ -21,36 +20,51 @@ const resetState = () => {
   validationText.value = "";
 };
 
-const startPrinting = async (fileInput: File | null, intervalInput: number) => {
+const validateInput = (
+  fileInput: File | null,
+  intervalInput: number
+): boolean => {
   if (!fileInput) {
     validationText.value = "Please select a valid file.";
-    return;
+    return false;
   }
   if (intervalInput < 50 || intervalInput > 2000) {
     validationText.value =
       "Please specify an interval between 50ms and 2000ms.";
-    return;
+    return false;
   }
-
   validationText.value = "";
-  resetState();
+  return true;
+};
 
+const handleSocketProgress = (data: { line: string; progress: number }) => {
+  currentLine.value = data.line;
+  fullArt.value = updateProgress(fullArt.value, data.line);
+  progress.value = data.progress;
+};
+
+const initializeSocket = async (fileInput: File, intervalInput: number) => {
   const { socketConnection } = await startPrintingProcess(
     fileInput,
     intervalInput
   );
   socket.value = socketConnection;
 
-  socket.value.on("line", (data: { line: string; progress: number }) => {
-    currentLine.value = data.line;
-    fullArt.value = updateProgress(fullArt.value, data.line);
-    progress.value = data.progress;
-  });
+  socket.value.on("line", handleSocketProgress);
 
   socket.value.on("complete", () => {
     socket.value?.disconnect();
     socket.value = null;
   });
+};
+
+const startPrinting = async (fileInput: File | null, intervalInput: number) => {
+  if (!validateInput(fileInput, intervalInput)) {
+    return;
+  }
+
+  resetState();
+  await initializeSocket(fileInput as File, intervalInput);
 };
 </script>
 
@@ -61,6 +75,7 @@ const startPrinting = async (fileInput: File | null, intervalInput: number) => {
     <main class="main-content">
       <section class="container">
         <PrintSetup @start-printing="startPrinting" />
+
         <AsciiArtOutput :progress="progress" :fullArt="fullArt" />
 
         <p v-if="validationText" class="validation-text">
@@ -91,5 +106,11 @@ const startPrinting = async (fileInput: File | null, intervalInput: number) => {
 section {
   margin: 0 auto;
   width: 100%;
+}
+
+.validation-text {
+  color: var(--text-color-warning);
+  font-size: 1.4rem;
+  margin-top: 1rem;
 }
 </style>
