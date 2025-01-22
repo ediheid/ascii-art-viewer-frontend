@@ -4,12 +4,13 @@
 
 This is the **frontend** for the ASCII Art Printer app. It allows users to upload an ASCII art text file, set a printing interval (in milliseconds), and watch the ASCII art being printed line by line, with a progress bar to show completion.
 
-- I decided to add a min interval value to ensure the ASCII Art is printed correctly, I found when the interval was too fast it would cut of the 'image'.
+- I decided to add a min interval value to ensure the ASCII Art is printed correctly, I found when the interval was too fast it would cut of the image.
 - I also added a max interval for the sake of it
+- Plus disabling the button and inline validation messages
 - Added some very basic error handling and time out handling
-  It is pretty bare bones, so thought I'd add a bit of Meyer Sound styling to it ;)
 - I added double validation for file type, the input itself only accepts .txt files, but I added an extra layer of validation to the file uploader function just in case
-- I was pretty rushed on this, so I'm sure I've missed quite a few edge cases (or even more obvious cases) - which I would love to discuss
+- I was pretty rushed on this, so I'm sure I've missed quite a few edge cases (or even more obvious cases) - which I would love to discuss :)
+- It is pretty bare bones, so thought I'd add a bit of Meyer Sound styling to it ;)
 
 ## Features
 
@@ -76,7 +77,7 @@ Ensure the backend server is running before using the frontend. For instructions
 
 Here's an example ASCII art file you can use to test the application:
 
-Save this as **duck.txt** and upload it to the app!
+Save this as `duck.txt` and upload it to the app!
 
 ```bash
        ,----,
