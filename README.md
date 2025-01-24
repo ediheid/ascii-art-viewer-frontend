@@ -38,7 +38,8 @@ This is the **frontend** for the ASCII Art Printer app. It allows users to uploa
    ```bash
    cd ascii-art-viewer
    ```
-3. Install dependencies:
+3. Install dependencies: (check .nvmrc for node version)
+
    ```bash
    npm install
    ```
