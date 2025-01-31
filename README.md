@@ -4,16 +4,11 @@
 
 This is the **frontend** for the ASCII Art Printer app. It allows users to upload an ASCII art text file, set a printing interval (in milliseconds), and watch the ASCII art being printed line by line, with a progress bar to show completion.
 
-- I decided to add a min interval value to ensure the ASCII Art is printed correctly - (I found when the interval was too fast it would cut of the image).
-- Also added a max interval for the sake of it.
-- Added some very basic error handling and time out handling
+- Min and max interval values to ensure the ASCII Art is printed correctly - (I found when the interval was too fast it would cut of the image).
+- Basic error handling and time out handling (todo: update with vee-validate)
 - Inline validation messages
-- Disable `print` button when condition are not met
-- Double validation for file type, the input itself only accepts .txt files, but I added an extra layer of validation to the file uploader just in case
-
-- It is pretty bare bones, so thought I'd add a bit of very basic Meyer Sound styling to it ;)
-- I wanted to speed this up for you, so I'm sure I've missed quite a few edge cases (or even more obvious cases) - which I would love to discuss :)
-- Given more time, I would have liked to and some input validation with `vee-validate`, some `Tailwind` styling and some component testing.
+- Disable `print` button when conditions are not met
+- Double validation for file type, the input itself only accepts `.txt` files, but I added an extra layer of validation to the file uploader just in case
 
 ## Features
 
@@ -26,19 +21,19 @@ This is the **frontend** for the ASCII Art Printer app. It allows users to uploa
 
 ## Prerequisites
 
-- **Node.js** (version 18 or higher is recommended)
+- **Node.js** (node version specified in `.nvmrc` file)
 - **npm** (comes with Node.js)
 
 ---
 
 ## Installation and Setup
 
-1. Download the ZIP file and extract it to a folder of your choice.
-2. Navigate to the extracted folder:
+1. Clone repository to a folder of your choice.
+2. Navigate to the folder:
    ```bash
    cd ascii-art-viewer
    ```
-3. Install dependencies: (check .nvmrc for node version)
+3. Install dependencies: (check `.nvmrc` for node version)
 
    ```bash
    npm install

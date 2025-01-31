@@ -1,11 +1,6 @@
 <template>
   <header class="header">
     <h1 class="heading">ASCII Art Printer</h1>
-    <img
-      src="/src/static/MeyerSoundLogo.png"
-      alt="Meyer Sound Logo"
-      class="logo"
-    />
   </header>
 </template>
 
